@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <title>jck-sharepoint-utils</title>
+    <script src="./lib/msal-browser.js"></script>
+</head>
+<body>
+<script type="module">
+  import { connect, copyFile } from './sharepoint.js';
+
+  const createTestFiles = async () => {
+    await connect();
+    const filesNum = 10;
+    const parentPath = '/drafts/jck/bulk-publish/test';
+    const refFile = 'test.docx';
+    for (let i = 0; i < filesNum; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await copyFile(`${parentPath}/${refFile}`, `${parentPath}`, `test-${i}.docx`);
+    }
+  };
+
+  const button = document.querySelector('.create-test-files');
+  button.onclick = async () => {
+    await createTestFiles();
+  };
+</script>
+<a href="http://localhost:3000/tools/loc/spauth?referrer=https://main--milo--adobecom.hlx.page/tools/loc/index.html&owner=adobecom&repo=milo&ref=main">add URL info</a>
+<button class="create-test-files">Create test files</button>
+</body>
+</html>
